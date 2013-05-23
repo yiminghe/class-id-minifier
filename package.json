@@ -1,0 +1,33 @@
+{
+    "name": "class-id-minifier",
+    "version": "0.1.0",
+    "description": "minify class and id attribute in html",
+    "author": "yiminghe <yiminghe@gmail.com>",
+    "bugs": {
+        "url": "https://github.com/yiminghe/class-id-minifier"
+    },
+    "engines": {
+        "node": ">=0.8.0"
+    },
+    "bin": {
+        "ci-minify": "./bin/minify.js"
+    },
+    "directories": {
+        "lib": "./lib/"
+    },
+    "main": "./lib/minify.js",
+    "dependencies": {
+        "optimist": ">=0.3.4",
+        "iconv-lite": ">=0.2.0",
+        "js-beautify": ">=0.2.0"
+    },
+    "licenses": [
+        {
+            "type": "MIT"
+        }
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/yiminghe/Sugar.git"
+    }
+}
