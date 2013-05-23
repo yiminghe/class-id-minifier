@@ -15,7 +15,7 @@
     "directories": {
         "lib": "./lib/"
     },
-    "main": "./lib/minify.js",
+    "main": "./lib/main.js",
     "dependencies": {
         "optimist": ">=0.3.4",
         "iconv-lite": ">=0.2.0",
