@@ -1,6 +1,6 @@
 {
     "name": "class-id-minifier",
-    "version": "0.1.0",
+    "version": "0.1.4",
     "description": "minify class and id attribute in html",
     "author": "yiminghe <yiminghe@gmail.com>",
     "bugs": {

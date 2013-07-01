@@ -19,7 +19,9 @@ var argv = require('optimist')
 var fs = require('fs');
 var zlib = require('zlib');
 
-var minify = require('../lib/main').minify;
+
+var classIdMinify=require('../lib/main');
+var minify = classIdMinify.minify;
 
 var he = argv.he || 'utf-8';
 var se = argv.se || 'utf-8';
@@ -45,7 +47,7 @@ function getFileContent(htmlFile, encoding) {
         content = fs.readFileSync(htmlFile, encoding);
         buffer = new Buffer(content);
     } else {
-        content = iconv.decode(buffer=fs.readFileSync(htmlFile), encoding);
+        content = iconv.decode(buffer = fs.readFileSync(htmlFile), encoding);
     }
     zlib.gzip(buffer, function (b) {
         fs.writeFileSync(htmlFile + '.gz', arguments[1]);
@@ -66,9 +68,7 @@ function saveFileContent(outFile, content, encoding) {
     });
 }
 
-
 htmlContent = getFileContent(htmlFile, he);
-
 
 var ret = minify(htmlContent);
 
@@ -76,10 +76,14 @@ saveFileContent(outFile, ret.html, he);
 
 console.info('generate html file: ' + outFile + ' at ' + (new Date().toLocaleString()));
 
-saveFileContent(scssFile, ret.scss, se);
+var scss = classIdMinify.getScssCode(ret.classIdMap);
+
+saveFileContent(scssFile, scss, se);
 
 console.info('generate scss file: ' + scssFile + ' at ' + (new Date().toLocaleString()));
 
-saveFileContent(jsFile, ret.js, je);
+var js = classIdMinify.getJsCode(ret.classIdMap);
+
+saveFileContent(jsFile, js, je);
 
 console.info('generate js file: ' + jsFile + ' at ' + (new Date().toLocaleString()));
