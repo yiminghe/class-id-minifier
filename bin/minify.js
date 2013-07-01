@@ -20,7 +20,7 @@ var fs = require('fs');
 var zlib = require('zlib');
 
 
-var classIdMinify=require('../lib/main');
+var classIdMinify = require('../lib/main');
 var minify = classIdMinify.minify;
 
 var he = argv.he || 'utf-8';
@@ -79,11 +79,12 @@ console.info('generate html file: ' + outFile + ' at ' + (new Date().toLocaleStr
 var scss = classIdMinify.getScssCode(ret.classIdMap);
 
 saveFileContent(scssFile, scss, se);
+saveFileContent(scssFile + '.dev.scss', classIdMinify.getDevScssCode(ret.classIdMap), se);
 
 console.info('generate scss file: ' + scssFile + ' at ' + (new Date().toLocaleString()));
 
 var js = classIdMinify.getJsCode(ret.classIdMap);
 
 saveFileContent(jsFile, js, je);
-
+saveFileContent(jsFile + '.dev.js', classIdMinify.getDevJsCode(ret.classIdMap), je);
 console.info('generate js file: ' + jsFile + ' at ' + (new Date().toLocaleString()));
