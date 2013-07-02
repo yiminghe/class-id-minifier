@@ -3,33 +3,35 @@
 var argv = require('optimist')
     .demand('f')
     .describe('f', 'html file')
+    .demand('cf')
+    .describe('cf', 'css file')
     .demand('o')
     .describe('o', 'minified html file')
     .describe('he', 'html file encoding')
-    .describe('se', 'html file encoding')
+    .describe('ce', 'html file encoding')
     .describe('je', 'html file encoding')
-    .demand('s')
-    .describe('s', 'scss file')
+    .demand('c')
+    .describe('c', 'css file')
     .demand('j')
     .describe('j', 'js file')
     .usage('minify html by shorter class and idm then generate scss and js variable map.\n' +
         'usage: $0 --he [html encoding] -f [html file] -s [scss file] -j [js file]').argv;
 
-
 var fs = require('fs');
 var zlib = require('zlib');
-
 
 var classIdMinify = require('../lib/main');
 var minify = classIdMinify.minify;
 
 var he = argv.he || 'utf-8';
-var se = argv.se || 'utf-8';
+var ce = argv.ce || 'utf-8';
 var je = argv.je || 'utf-8';
+
+var cssFile=argv.cf;
 
 var htmlFile = argv.f;
 
-var scssFile = argv.s;
+var cssOutFile = argv.c;
 
 var outFile = argv.o;
 
@@ -76,12 +78,10 @@ saveFileContent(outFile, ret.html, he);
 
 console.info('generate html file: ' + outFile + ' at ' + (new Date().toLocaleString()));
 
-var scss = classIdMinify.getScssCode(ret.classIdMap);
+var css = classIdMinify.getCssCode(ret.classIdMap,getFileContent(cssFile,ce));
 
-saveFileContent(scssFile, scss, se);
-saveFileContent(scssFile + '.dev.scss', classIdMinify.getDevScssCode(ret.classIdMap), se);
-
-console.info('generate scss file: ' + scssFile + ' at ' + (new Date().toLocaleString()));
+saveFileContent(cssOutFile, css, ce);
+console.info('generate css file: ' + cssOutFile + ' at ' + (new Date().toLocaleString()));
 
 var js = classIdMinify.getJsCode(ret.classIdMap);
 
