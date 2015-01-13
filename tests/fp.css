@@ -1,7 +1,7 @@
-#site-nav {
+#site-nav #zz{
 	color:red;
 }
 
-.sitenav-mobile {
+.sitenav-mobile .sitenav-pc {
 	display:none;
 }

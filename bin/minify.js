@@ -8,8 +8,8 @@ var argv = require('optimist')
     .demand('o')
     .describe('o', 'minified html file')
     .describe('he', 'html file encoding')
-    .describe('ce', 'html file encoding')
-    .describe('je', 'html file encoding')
+    .describe('ce', 'css file encoding')
+    .describe('je', 'javascript file encoding')
     .demand('c')
     .describe('c', 'css file')
     .demand('j')
@@ -19,26 +19,17 @@ var argv = require('optimist')
 
 var fs = require('fs');
 var zlib = require('zlib');
-
 var classIdMinify = require('../lib/main');
 var minify = classIdMinify.minify;
-
 var he = argv.he || 'utf-8';
 var ce = argv.ce || 'utf-8';
 var je = argv.je || 'utf-8';
-
 var cssFile=argv.cf;
-
 var htmlFile = argv.f;
-
 var cssOutFile = argv.c;
-
 var outFile = argv.o;
-
 var jsFile = argv.j;
-
 var htmlContent;
-
 var iconv = require('iconv-lite');
 
 function getFileContent(htmlFile, encoding) {
